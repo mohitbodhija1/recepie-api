@@ -1,0 +1,21 @@
+---
+name: Checks
+
+on: [push]
+
+jobs:
+  test-lint:
+    name: Test & Lint
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Test
+        run: |
+          docker compose run app python manage.py test
+
+      - name: Lint
+        run: |
+          docker compose run app flake8
